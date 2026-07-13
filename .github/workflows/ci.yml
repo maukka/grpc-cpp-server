@@ -28,5 +28,8 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
+      - name: Build
+        run: cmake --build build --config Release
+
       - name: Run tests
         run: ./build/test_dummy

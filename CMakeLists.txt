@@ -8,13 +8,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Use pre-generated protobuf sources
 set(GENERATED_SRCS
-    proto/helloworld.pb.cc
-    proto/helloworld.grpc.pb.cc
+    helloworld.pb.cc
+    helloworld.grpc.pb.cc
 )
 
 set(GENERATED_HDRS
-    proto/helloworld.pb.h
-    proto/helloworld.grpc.pb.h
+    helloworld.pb.h
+    helloworld.grpc.pb.h
 )
 
 add_executable(server

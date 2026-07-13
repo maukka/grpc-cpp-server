@@ -21,6 +21,9 @@ jobs:
             build-essential cmake pkg-config \
             libprotobuf-dev protobuf-compiler \
             libgrpc++-dev
+            
+      - name: Remove old CMake cache
+        run: rm -rf build
 
       - name: Configure CMake
         run: cmake -B build -S .

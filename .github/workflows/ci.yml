@@ -32,7 +32,7 @@ jobs:
         run: cmake --build build --config Release
       - name: List build directory
         run: ls -al build
-        - name: Run tests
+      - name: Run tests
         run: |
           echo "Running test_dummy..."
           ls -al build

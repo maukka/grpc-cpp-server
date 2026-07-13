@@ -11,11 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - nas -al build
-          file build/test_dummy
-          chmod +x build/test_dummy
-          ./build/test_dummy || echo "Test failed with exit code $?"
-me: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Install dependencies
@@ -41,4 +37,7 @@ me: Checkout code
       - name: Run tests
         run: |
           echo "Running test_dummy..."
-          l
+          ls -al build
+          file build/test_dummy
+          chmod +x build/test_dummy
+          ./build/test_dummy || echo "Test failed with exit code $?"

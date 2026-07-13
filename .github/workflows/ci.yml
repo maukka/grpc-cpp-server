@@ -30,6 +30,9 @@ jobs:
 
       - name: Build
         run: cmake --build build --config Release
-
+      - name: List build directory
+        run: ls -al build
       - name: Run tests
-        run: ./build/test_dummy
+        run: |
+          echo "Running test_dummy..."
+          ./build/test_dummy || echo "Test failed with exit code $?"

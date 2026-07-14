@@ -22,6 +22,13 @@ jobs:
             libprotobuf-dev protobuf-compiler \
             libgrpc++-dev protobuf-compiler-grpc
 
+      - name: Regenerate protobuf files
+        run: |
+          echo "Regenerating protobuf files..."
+          protoc --cpp_out=./src --grpc_out=./src \
+            --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` \
+            proto/helloworld.proto
+
       - name: Remove old CMake cache
         run: rm -rf build
 

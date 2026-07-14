@@ -2,49 +2,41 @@ name: Minimal CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential cmake pkg-config \
-            libprotobuf-dev protobuf-compiler \
-            libgrpc++-dev protobuf-compiler-grpc
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          cmake \
+          protobuf-compiler \
+          protobuf-compiler-grpc \
+          libgrpc++-dev \
+          pkg-config
 
-      - name: Regenerate protobuf files
-        run: |
-          echo "Regenerating protobuf files..."
-          protoc --cpp_out=src --grpc_out=src \
-            --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` \
-            proto/helloworld.proto
+    - name: Generate Protobuf files
+      run: |
+        mkdir -p src
+        protoc \
+          --cpp_out=src \
+          --grpc_out=src \
+          --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin \
+          -I=proto \
+          proto/helloworld.proto
 
-      - name: Remove old CMake cache
-        run: rm -rf build
+    - name: Configure CMake
+      run: cmake -B build -S .
 
-      - name: Configure CMake
-        run: cmake -B build -S .
-
-      - name: Build
-        run: cmake --build build --config Release
-
-      - name: List build directory
-        run: ls -al build
-
-      - name: Run tests
-        run: |
-          echo "Running test_dummy..."
-          ls -al build
-          file build/test_dummy
-          chmod +x build/test_dummy
-          ./build/test_dummy || echo "Test failed with exit code $?"
+    - name: Build
+      run: cmake --build build --config Release

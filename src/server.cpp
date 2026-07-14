@@ -1,6 +1,6 @@
 #include <grpcpp/grpcpp.h>
-#include "../helloworld.pb.h"
-#include "../helloworld.grpc.pb.h"
+#include "helloworld.pb.h"
+#include "helloworld.grpc.pb.h"
 
 
 using grpc::Server;

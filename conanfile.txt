@@ -1,0 +1,7 @@
+[requires]
+grpc/1.62.0
+protobuf/4.25.1
+
+[generators]
+CMakeToolchain
+CMakeDeps
